@@ -1,11 +1,19 @@
 <script setup>
+import {provide, reactive} from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
+const userData = reactive({
+  username: 'Farhan',
+  status: 'active'
+})
+//providing this data to all the child components
+provide('userData', userData)
 </script>
 
 <template>
       <nav>
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/posts">Posts</RouterLink>
+        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/modal">Modal</RouterLink>
       </nav>
   <RouterView />
 </template>
