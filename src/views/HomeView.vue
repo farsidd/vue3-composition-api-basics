@@ -1,9 +1,12 @@
 <template>
   <div class="home">
+    <h3 ref="headingRef">This is the title</h3>
     <button @click="decreaseCounter" class="btn">-</button>
     <span class="counter">{{ counterData.counter }}</span>
     <button @click="increaseCounter" class="btn">+</button>
     <p>The number is: {{evenOrOdd}}</p>
+    <button @click="showNextTick" style="margin-top: 10px">Next Tick</button>
+    <p id="nextTickDataId">{{nextTickData}}</p>
   </div>
 </template>
 //new recommended way to use setup with composition api
@@ -21,8 +24,10 @@
 // };
 
 //way 2 by using reactive object so we can gather all the data variables specific to some functionality
-import {reactive, computed, watch, ref} from 'vue';
+import {reactive, computed, watch, ref, onMounted, nextTick} from 'vue';
+//simple reactive data property using ref
 const refCount = ref(0)
+//use data propery inside reactive object to grouped all related data properties related to specific functionality
 const counterData = reactive({
   counter: 0,
   titleEvenOrOdd: ''
@@ -55,6 +60,24 @@ watch(() => counterData.counter, (newCounterValue) => {
     alert('ten')
   }
 })
+//TEMPLATE REF CODE
+//here we see how to use template refs we pass some ref to h3 tag in our template
+const headingRef = ref(null)
+onMounted(() => {
+  console.log(headingRef.value.offsetWidth) //display how much space taking by h3 on window in px
+})
+
+//NEXT TICK CODE
+const nextTickData = ref('old data')
+const showNextTick = () => {
+    nextTickData.value = 'new data'
+    console.log(document.getElementById('nextTickDataId').textContent)
+ nextTick(()=>{
+    console.log("next tick inside code run now")
+    console.log(document.getElementById('nextTickDataId').textContent)
+  })
+}
+
 </script>
 
 //old way to use setup with composition api
