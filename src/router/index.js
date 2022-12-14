@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-// import ModalView from '../views/ModalView.vue'
+import Posts from '../views/Posts.vue'
+import HomeViewWithComposable from '../views/HomeViewWithComposable.vue'
 
 
 const router = createRouter({
@@ -11,11 +12,21 @@ const router = createRouter({
       name: 'home',
       component: HomeView
     },
-    // {
-    //   path: '/modal',
-    //   name: 'modal',
-    //   component: ModalView
-    // },
+    {
+      path: '/home-2',
+      name: 'home-2',
+      component: HomeViewWithComposable
+    },
+    {
+      path: '/posts',
+      name: 'posts',
+      component: Posts
+    },
+    {
+      path: '/postDetails/:id',
+      name: 'postDetails',
+      component: () => import('../views/PostDetails.vue')
+    },
     {
       path: '/about',
       name: 'about',
